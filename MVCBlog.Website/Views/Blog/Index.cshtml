@@ -5,8 +5,8 @@
 }
 
 @section HeaderContent {
-        <link rel="canonical" href="Test @this.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")" />
-    }
+    <link rel="canonical" href="Test @this.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")" />
+}
 
 @section HeroUnit {
     @if (!this.Request.IsAuthenticated && !this.Model.Entries.Any())
@@ -25,7 +25,7 @@
         @if (!string.IsNullOrEmpty(this.Model.Tag))
         {
             <i class="glyphicon glyphicon-tag"></i>
-            @Common.Tag<text>: @this.Model.Tag</text> 
+            @Common.Tag<text>: @this.Model.Tag</text>
         }
         else if (!string.IsNullOrEmpty(this.Model.Search))
         {
@@ -41,15 +41,51 @@
 }
 else
 {
-    foreach (var entry in this.Model.Entries)
-    {
-        <h2>@Html.ActionLink(entry.Header, entry.Url)</h2>
-         @:<article>
-                Html.RenderPartial(MVC.Blog.Views._BlogEntryHeaderControl, entry);
-                @Html.Raw(entry.ShortContent);
-                <p>@Html.ActionLink(Common.Continue, entry.Url)</p>
-         @:</article>
-    }
+
+    <div class="portfolio-wrapper">
+
+        @foreach (var entry in this.Model.Entries)
+        {
+            <div class="card">
+                <a href="@entry.Url" class="thumb">
+                    <img src="/blogcontent/blogimages/820.jpg" alt="" title="" />
+                    <span class="overlay"><span class="fa fa-search"></span></span>
+                </a>
+                <div class="card-body">
+                    <h2>@Html.ActionLink(entry.Header, entry.Url)</h2>                   
+                    <p>
+                        <i class="glyphicon glyphicon-calendar"></i> <time datetime="@entry.PublishDate.ToString("yyyy-MM-dd")">@entry.PublishDate.ToShortDateString()</time>
+                        @if (entry.Author != null)
+                        {
+                            <text>&nbsp; &nbsp;</text><i class="glyphicon glyphicon-user"></i> <text>@entry.Author</text>
+                        }
+                        &nbsp; &nbsp;<i class="glyphicon glyphicon-comment"></i> <a href="@Url.Action(entry.Url)#comments" title="@Common.ToComments">@entry.BlogEntryComments.Count</a>
+                        @if (this.Request.IsAuthenticated)
+                        {
+                            <text>&nbsp; &nbsp;</text><i class="glyphicon glyphicon-edit"></i> <a href="@Url.Action(MVC.Administration.EditBlogEntry(entry.Id))" titl title="@Common.Edit">@Common.Edit</a>
+                            <text>&nbsp; &nbsp;</text><i class="glyphicon glyphicon-remove-circle"></i> <a href="@Url.Action(MVC.Blog.Delete(entry.Id))" clas class="adminlink deleteicon" title="@Common.Delete" onclick="if (!confirm('@Common.DeleteConfirmation')) { return false;}">@Common.Delete</a>
+                        }
+                    </p>
+
+                    <p>@Html.Raw(entry.ShortContent)</p>
+                    <p>@Html.ActionLink(Common.Continue, entry.Url)</p>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    @*foreach (var entry in this.Model.Entries)
+        {
+            <h2>@Html.ActionLink(entry.Header, entry.Url)</h2>
+            @:<article>
+                    Html.RenderPartial(MVC.Blog.Views._BlogEntryHeaderControl, entry);
+            @Html.Raw(entry.ShortContent);
+            <p>@Html.ActionLink(Common.Continue, entry.Url)</p>
+            @:</article>
+        }*@
+
+
 
     Html.RenderPartial(MVC.Blog.Views._PagingControl, this.Model);
 }

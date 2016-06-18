@@ -6,12 +6,10 @@
     @Styles.Render("~/css/rebound")
     @RenderSection("HeaderContent", false)
     <title>@Html.MvcSiteMap().SiteMapTitle() - ConanVNFansub</title>
-
     <meta name="robots" content="index, follow" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="@this.Request.Url.Scheme://@this.Request.Url.Authority@Url.Content("~/")" />
     <link rel="SHORTCUT ICON" href="https://secure.gravatar.com/blavatar/d53f06e77fd9fffe5f0d290ff597358b?s=16 type="image/x-icon" />
@@ -19,46 +17,93 @@
     <link rel="alternate" type="application/rss+xml" title="@ConfigurationManager.AppSettings["BlogDescription"]" href="@this.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Action(MVC.Blog.Feed())" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top hidden-print" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="@Url.RouteUrl(MVCBlog.Website.Routes.DEFAULT, new { action = MVC.Blog.ActionNames.Index, controller = MVC.Blog.Name })">MVC Blog</a>
-            </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.RouteLink(@Common.Blog, MVCBlog.Website.Routes.DEFAULT, new { action = MVC.Blog.ActionNames.Index, controller = MVC.Blog.Name })</li>
-                    <li>@Html.ActionLink(@Common.About, MVC.About.Index())</li>
-                    <li><a href="@this.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Action(MVC.Blog.Feed())" class="rss" title="@Common.RssFeed"></a></li>
-                </ul>
-
-                <form method="get" class="navbar-form navbar-right" action="@Url.RouteUrl(MVCBlog.Website.Routes.DEFAULT, new { action = MVC.Blog.ActionNames.Index, controller = MVC.Blog.Name })">
-                    <div class="form-group">
-                        @Html.TextBox("search", null, new { placeholder = Common.Search, @class = "form-control" })
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+                <div class="navbar" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#cvf-navbar-collapse"><span class="fa fa-bars"></span> Menu</button>
+                        <a href="@Url.Action("Index","Blog")" class="navbar-brand">ConanVN-Fansub</a>
                     </div>
-                </form>
+                    <div class="collapse navbar-collapse" id="cvf-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="title">Menu</li>
+                            <li class="active"><a href="@Url.Action("Index","Blog")">Trang chủ</a></li>
+                            <li><a href="@Url.Action("Index","About")">Về chúng tôi</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li class="title">Điều tra</li>
+                            <form class="navbar-form" role="search" action="@Url.RouteUrl(MVCBlog.Website.Routes.DEFAULT, new { action = MVC.Blog.ActionNames.Index, controller = MVC.Blog.Name })">
+                                <div class="input-group">
+                                    @Html.TextBox("search", null, new { placeholder = Common.Search, @class = "form-control" })
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 content">
+                @RenderSection("HeroUnit", false)
+
+                @RenderBody()
             </div>
         </div>
     </div>
-
-    <div class="container">
-        @RenderSection("HeroUnit", false)
-
-        <ul class="breadcrumb hidden-print">@Html.MvcSiteMap().SiteMapPath()</ul>
-        <h1>@Html.MvcSiteMap().SiteMapTitle()</h1>
-        @RenderBody()
-
-        <hr />
-        <footer class="text-center">
+    <footer class="hidden-xs">
+        <p class="pull-left">&copy; Copyright 2016. ConanVNFansub.</p>
+        <p class="pull-right">
             @Html.ActionLink(@Common.Imprint, MVC.Imprint.Index())
             |
             @{Html.RenderPartial(MVC.Shared.Views._LogonControl);}
-        </footer>
-    </div>
+        </p>
+    </footer>
+    @*
+        <div class="navbar navbar-inverse navbar-fixed-top hidden-print" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@Url.RouteUrl(MVCBlog.Website.Routes.DEFAULT, new { action = MVC.Blog.ActionNames.Index, controller = MVC.Blog.Name })">MVC Blog</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.RouteLink(@Common.Blog, MVCBlog.Website.Routes.DEFAULT, new { action = MVC.Blog.ActionNames.Index, controller = MVC.Blog.Name })</li>
+                        <li>@Html.ActionLink(@Common.About, MVC.About.Index())</li>
+                        <li><a href="@this.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Action(MVC.Blog.Feed())" class="rss" title="@Common.RssFeed"></a></li>
+                    </ul>
+
+                    <form method="get" class="navbar-form navbar-right" action="@Url.RouteUrl(MVCBlog.Website.Routes.DEFAULT, new { action = MVC.Blog.ActionNames.Index, controller = MVC.Blog.Name })">
+                        <div class="form-group">
+                            @Html.TextBox("search", null, new { placeholder = Common.Search, @class = "form-control" })
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            @RenderSection("HeroUnit", false)
+
+            <ul class="breadcrumb hidden-print">@Html.MvcSiteMap().SiteMapPath()</ul>
+            <h1>@Html.MvcSiteMap().SiteMapTitle()</h1>
+            @RenderBody()
+
+            <hr />
+            <footer class="text-center">
+                @Html.ActionLink(@Common.Imprint, MVC.Imprint.Index())
+                |
+                @{Html.RenderPartial(MVC.Shared.Views._LogonControl);}
+            </footer>
+        </div>
+    *@
     @Scripts.Render("~/bundles/scripts")
     @Scripts.Render("~/scripts/rebound")
     @RenderSection("ScriptContent", false)

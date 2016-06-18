@@ -145,7 +145,7 @@
     <value>Popular Posts</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Search</value>
+    <value>Tìm kiếm</value>
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Tags</value>
@@ -181,7 +181,7 @@
     <value>Comments</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continue reading ...</value>
+    <value>Đọc tiếp →</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>

@@ -31,6 +31,7 @@ namespace MVCBlog.Website
             bundles.Add(new StyleBundle("~/css/rebound")
                 .Include(
                     "~/Content/rebound/bootstrap.css",
+                    "~/Content/rebound/font-awesome.css",
                     "~/Content/rebound/style.css"));
 
             bundles.Add(new ScriptBundle("~/scripts/rebound")

@@ -94,7 +94,7 @@ namespace MVCBlog.Website.Controllers
         [MvcSiteMapProvider.Web.Mvc.Filters.SiteMapTitle("SiteMapValue", Target = AttributeTarget.CurrentNode)]
         public virtual ActionResult Index(string tag, string search, int? page)
         {
-            ViewData["SiteMapValue"] = "Trang chủ";
+            //ViewData["SiteMapValue"] = "Trang chủ";
             var entries = this.GetAll(
                 tag,
                 search,

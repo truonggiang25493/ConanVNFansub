@@ -3,7 +3,7 @@
             xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
 
-  <mvcSiteMapNode title="$resources:SiteMapLocalizations,Blog_Index" controller="Blog" action="Index" preservedRouteParameters="tag,page">
+  <mvcSiteMapNode title="Trang chủ" controller="Blog" action="Index" preservedRouteParameters="tag,page">
     <mvcSiteMapNode title="$resources:SiteMapLocalizations,Blog_Entry" action="Entry" preservedRouteParameters="year,month,day,id" />
     <mvcSiteMapNode title="$resources:SiteMapLocalizations,Login_Index" controller="Login" action="Index"/>
     <mvcSiteMapNode title="$resources:SiteMapLocalizations,Login_Logout" controller="Login" action="Logout"/>
